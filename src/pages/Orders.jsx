@@ -1,5 +1,3 @@
-// src/pages/Orders.jsx
-
 import {
   useEffect,
 } from "react";

@@ -1,5 +1,3 @@
-// src/pages/Signup.jsx
-
 import {
   useState,
 } from "react";

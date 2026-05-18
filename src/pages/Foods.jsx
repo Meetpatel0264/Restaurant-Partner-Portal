@@ -56,7 +56,7 @@ export default function Foods() {
       <div className="flex-1 overflow-y-auto">
 
         <Topbar
-          title="Food Management 🍕"
+          title="Food Management"
           subtitle="Manage all restaurant food items"
           buttonText="Add Food"
           onClick={() =>

@@ -118,7 +118,7 @@ export default function AddFoodModal({
         <div className="flex items-center justify-between px-8 py-6 border-b border-white/5">
 
           <h1 className="text-3xl font-bold text-white">
-            Add New Food 🍔
+            Add New Food
           </h1>
 
           <button

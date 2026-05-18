@@ -1,5 +1,3 @@
-// src/routes/AppRoutes.jsx
-
 import {
   BrowserRouter,
   Routes,
@@ -29,7 +27,6 @@ export default function AppRoutes() {
 
       <Routes>
 
-        {/* PUBLIC ROUTES */}
         <Route
           path="/"
           element={<Login />}
@@ -47,7 +44,6 @@ export default function AppRoutes() {
           }
         />
 
-        {/* PROTECTED ROUTES */}
         <Route
           path="/dashboard"
           element={

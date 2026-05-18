@@ -113,7 +113,7 @@ export default function Dashboard() {
 
                   Welcome,
                   <h1>
-                    {user?.name}
+                  {user?.name}
                   </h1>
 
                 </h1>
@@ -131,7 +131,7 @@ export default function Dashboard() {
               <img
                 src={
                   user?.image ||
-                  "user.png"
+                  "/user.png"
                 }
                 alt="profile"
                 className="w-44 h-44 rounded-full object-cover border-4 border-white shadow-2xl"
