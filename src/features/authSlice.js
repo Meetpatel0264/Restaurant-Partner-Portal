@@ -5,7 +5,6 @@ import {
 
 import api from "../api/api";
 
-// REGISTER
 export const registerUser =
   createAsyncThunk(
     "auth/register",
@@ -39,7 +38,6 @@ export const registerUser =
     }
   );
 
-// LOGIN
 export const loginUser =
   createAsyncThunk(
     "auth/login",
@@ -67,7 +65,6 @@ export const loginUser =
     }
   );
 
-// GET PROFILE
 export const getProfile =
   createAsyncThunk(
     "auth/profile",
@@ -115,7 +112,6 @@ const authSlice = createSlice({
 
     builder
 
-      // REGISTER
       .addCase(
         registerUser.pending,
         (state) => {
@@ -148,7 +144,6 @@ const authSlice = createSlice({
         }
       )
 
-      // LOGIN
       .addCase(
         loginUser.pending,
         (state) => {
@@ -181,7 +176,6 @@ const authSlice = createSlice({
         }
       )
 
-      // PROFILE
       .addCase(
         getProfile.pending,
         (state) => {

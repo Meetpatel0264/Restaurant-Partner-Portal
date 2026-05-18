@@ -35,7 +35,11 @@ export default function FoodCard({
       <div className="relative">
 
         <img
-          src={food?.image}
+          src={
+            food?.image
+              ? `https://zomato-clone-api-5e4m.onrender.com/${food.image}`
+              : "/food.png"
+          }
           alt={food?.title}
           className="w-full h-60 object-cover"
         />
@@ -77,10 +81,9 @@ export default function FoodCard({
           <span
             className={`px-4 py-2 rounded-full text-sm font-semibold
               
-              ${
-                food?.isAvailable
-                  ? "bg-green-500/20 text-green-400"
-                  : "bg-red-500/20 text-red-400"
+              ${food?.isAvailable
+                ? "bg-green-500/20 text-green-400"
+                : "bg-red-500/20 text-red-400"
               }
               
               `}
