@@ -92,7 +92,9 @@ export default function UpdateFoodModal({
     });
 
     setPreview(
-      URL.createObjectURL(file)
+      editFood?.image
+        ? `https://zomato-clone-api-5e4m.onrender.com${editFood.image}`
+        : ""
     );
   };
 

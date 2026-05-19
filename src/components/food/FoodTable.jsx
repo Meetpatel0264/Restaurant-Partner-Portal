@@ -107,8 +107,9 @@ export default function FoodTable({
 
                         <img
                           src={
-                            food?.image ||
-                            "/food.png"
+                            food?.image
+                              ? `https://zomato-clone-api-5e4m.onrender.com${food.image}`
+                              : "/food.png"
                           }
                           alt={food?.title}
                           className="w-16 h-16 rounded-xl object-cover"
