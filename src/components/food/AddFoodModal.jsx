@@ -21,6 +21,9 @@ export default function AddFoodModal({
 
   const dispatch = useDispatch();
 
+  const [success, setSuccess] =
+    useState(false);
+
   const [formData, setFormData] =
     useState({
       title: "",
@@ -95,7 +98,15 @@ export default function AddFoodModal({
 
     await dispatch(addFood(data));
 
-    setOpen(false);
+    setSuccess(true);
+
+    setTimeout(() => {
+
+      setSuccess(false);
+
+      setOpen(false);
+
+    }, 1500);
 
     setFormData({
       title: "",
@@ -138,6 +149,16 @@ export default function AddFoodModal({
           onSubmit={handleSubmit}
           className="p-8 space-y-5"
         >
+
+          {
+            success && (
+              <div className="bg-green-500/20 border border-green-500 text-green-400 px-5 py-4 rounded-2xl">
+
+                Food Added Successfully 🎉
+
+              </div>
+            )
+          }
 
           <div className="flex justify-center">
 

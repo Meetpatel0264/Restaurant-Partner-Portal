@@ -8,14 +8,23 @@ import {
 } from "react-redux";
 
 import {
+  useState,
+} from "react";
+
+import {
   deleteFood,
 } from "../../features/foodSlice";
+
+import UpdateFoodModal from "./UpdateFoodModal";
 
 export default function FoodCard({
   food,
 }) {
 
   const dispatch = useDispatch();
+
+  const [editFood, setEditFood] =
+    useState(null);
 
   const handleDelete = () => {
 
@@ -30,96 +39,111 @@ export default function FoodCard({
   };
 
   return (
-    <div className="bg-[#1b1b1b] rounded-3xl overflow-hidden border border-white/5 hover:border-red-500 transition">
+    <>
+      <UpdateFoodModal
+        editFood={editFood}
+        setEditFood={setEditFood}
+      />
 
-      <div className="relative">
+      <div className="bg-[#1b1b1b] rounded-3xl overflow-hidden border border-white/5 hover:border-red-500 transition">
 
-        <img
-          src={
-            food?.image
-              ? `https://zomato-clone-api-5e4m.onrender.com/${food.image}`
-              : "/food.png"
-          }
-          alt={food?.title}
-          className="w-full h-60 object-cover"
-        />
+        <div className="relative">
 
-        <div className="absolute top-4 left-4 bg-red-500 text-white px-4 py-2 rounded-full text-sm font-semibold">
+          <img
+            src={
+              food?.image?.startsWith(
+                "http"
+              )
+                ? food.image
+                : "/food.png"
+            }
+            alt={food?.title}
+            className="w-full h-60 object-cover"
+          />
 
-          {food?.category}
+          <div className="absolute top-4 left-4 bg-red-500 text-white px-4 py-2 rounded-full text-sm font-semibold">
 
-        </div>
+            {food?.category}
 
-      </div>
-
-      <div className="p-5">
-
-        <div className="flex items-center justify-between">
-
-          <h1 className="text-2xl font-bold text-white">
-
-            {food?.title}
-
-          </h1>
-
-          <span className="text-green-400 font-bold text-xl">
-
-            ₹{food?.price}
-
-          </span>
+          </div>
 
         </div>
 
-        <p className="text-gray-400 mt-4 line-clamp-2">
+        <div className="p-5">
 
-          {food?.description}
+          <div className="flex items-center justify-between">
 
-        </p>
+            <h1 className="text-2xl font-bold text-white">
 
-        <div className="flex items-center justify-between mt-5">
+              {food?.title}
 
-          <span
-            className={`px-4 py-2 rounded-full text-sm font-semibold
+            </h1>
+
+            <span className="text-green-400 font-bold text-xl">
+
+              ₹{food?.price}
+
+            </span>
+
+          </div>
+
+          <p className="text-gray-400 mt-4 line-clamp-2">
+
+            {food?.description}
+
+          </p>
+
+          <div className="flex items-center justify-between mt-5">
+
+            <span
+              className={`px-4 py-2 rounded-full text-sm font-semibold
               
-              ${food?.isAvailable
-                ? "bg-green-500/20 text-green-400"
-                : "bg-red-500/20 text-red-400"
+              ${
+                food?.isAvailable
+                  ? "bg-green-500/20 text-green-400"
+                  : "bg-red-500/20 text-red-400"
               }
               
               `}
-          >
-
-            {
-              food?.isAvailable
-                ? "Available"
-                : "Unavailable"
-            }
-
-          </span>
-
-          <div className="flex items-center gap-3">
-
-            <button className="w-11 h-11 rounded-xl bg-blue-500/20 hover:bg-blue-500 transition flex items-center justify-center text-blue-400 hover:text-white">
-
-              <FiEdit />
-
-            </button>
-
-            <button
-              onClick={handleDelete}
-              className="w-11 h-11 rounded-xl bg-red-500/20 hover:bg-red-500 transition flex items-center justify-center text-red-400 hover:text-white"
             >
 
-              <FiTrash2 />
+              {
+                food?.isAvailable
+                  ? "Available"
+                  : "Unavailable"
+              }
 
-            </button>
+            </span>
+
+            <div className="flex items-center gap-3">
+
+              <button
+                onClick={() =>
+                  setEditFood(food)
+                }
+                className="w-11 h-11 rounded-xl bg-blue-500/20 hover:bg-blue-500 transition flex items-center justify-center text-blue-400 hover:text-white"
+              >
+
+                <FiEdit />
+
+              </button>
+
+              <button
+                onClick={handleDelete}
+                className="w-11 h-11 rounded-xl bg-red-500/20 hover:bg-red-500 transition flex items-center justify-center text-red-400 hover:text-white"
+              >
+
+                <FiTrash2 />
+
+              </button>
+
+            </div>
 
           </div>
 
         </div>
 
       </div>
-
-    </div>
+    </>
   );
 }

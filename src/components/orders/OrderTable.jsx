@@ -127,6 +127,17 @@ export default function OrderTable({
 
                         </p>
 
+                        {/* TIME */}
+                        <p className="text-xs text-gray-500 mt-1">
+
+                          {
+                            moment(
+                              order?.updatedAt
+                            ).fromNow()
+                          }
+
+                        </p>
+
                       </div>
 
                     </td>

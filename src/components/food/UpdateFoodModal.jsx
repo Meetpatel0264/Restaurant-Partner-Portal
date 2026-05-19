@@ -41,25 +41,26 @@ export default function UpdateFoodModal({
 
       setFormData({
         title:
-          editFood.title || "",
+          editFood?.title || "",
 
         price:
-          editFood.price || "",
+          editFood?.price || "",
 
         category:
-          editFood.category || "",
+          editFood?.category || "",
 
         description:
-          editFood.description || "",
+          editFood?.description || "",
 
         isAvailable:
-          editFood.isAvailable,
+          editFood?.isAvailable ??
+          true,
 
         image: null,
       });
 
       setPreview(
-        editFood.image
+        editFood?.image || ""
       );
     }
 
@@ -154,12 +155,11 @@ export default function UpdateFoodModal({
 
       <div className="bg-[#1b1b1b] rounded-3xl w-full max-w-2xl border border-white/10 overflow-hidden">
 
-        {/* HEADER */}
         <div className="flex items-center justify-between px-8 py-6 border-b border-white/5">
 
           <h1 className="text-3xl font-bold text-white">
 
-            Update Food 🍔
+            Update Food
 
           </h1>
 
@@ -176,32 +176,44 @@ export default function UpdateFoodModal({
 
         </div>
 
-        {/* FORM */}
         <form
           onSubmit={handleSubmit}
           className="p-8 space-y-5"
         >
 
-          {/* IMAGE */}
           <div className="flex justify-center">
 
             <label className="cursor-pointer">
 
-              <div className="w-40 h-40 rounded-3xl overflow-hidden border-2 border-dashed border-red-500 bg-[#222]">
+              <div className="w-40 h-40 rounded-3xl overflow-hidden border-2 border-dashed border-red-500 bg-[#222] flex items-center justify-center">
 
                 {
-                  preview && (
+                  preview ? (
+
                     <img
-                      src={
-                        preview?.startsWith(
-                          "blob:"
-                        )
-                          ? preview
-                          : `https://zomato-clone-api-5e4m.onrender.com/${preview}`
-                      }
+                      src={preview}
                       alt="preview"
                       className="w-full h-full object-cover"
                     />
+
+                  ) : (
+
+                    <div className="text-center">
+
+                      <h1 className="text-white text-lg font-semibold">
+
+                        Upload
+
+                      </h1>
+
+                      <p className="text-gray-400 text-sm mt-2">
+
+                        Food Image
+
+                      </p>
+
+                    </div>
+
                   )
                 }
 
@@ -209,6 +221,7 @@ export default function UpdateFoodModal({
 
               <input
                 type="file"
+                accept="image/*"
                 className="hidden"
                 onChange={handleImage}
               />
@@ -223,6 +236,7 @@ export default function UpdateFoodModal({
             value={formData.title}
             onChange={handleChange}
             className="zomatoInput"
+            placeholder="Food Title"
           />
 
           <input
@@ -231,6 +245,7 @@ export default function UpdateFoodModal({
             value={formData.price}
             onChange={handleChange}
             className="zomatoInput"
+            placeholder="Food Price"
           />
 
           <select
@@ -274,17 +289,20 @@ export default function UpdateFoodModal({
             }
             onChange={handleChange}
             className="zomatoInput resize-none"
+            placeholder="Food Description"
           ></textarea>
 
-          {/* STATUS */}
           <select
             name="isAvailable"
             value={
               formData.isAvailable
+                ? "true"
+                : "false"
             }
             onChange={(e) =>
               setFormData({
                 ...formData,
+
                 isAvailable:
                   e.target.value ===
                   "true",
@@ -293,17 +311,20 @@ export default function UpdateFoodModal({
             className="zomatoInput"
           >
 
-            <option value={true}>
+            <option value="true">
               Available
             </option>
 
-            <option value={false}>
+            <option value="false">
               Unavailable
             </option>
 
           </select>
 
-          <button className="primaryBtn">
+          <button
+            type="submit"
+            className="primaryBtn"
+          >
 
             Update Food
 

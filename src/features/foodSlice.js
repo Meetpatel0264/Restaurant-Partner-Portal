@@ -5,7 +5,6 @@ import {
 
 import api from "../api/api";
 
-// GET FOODS
 export const getFoods =
   createAsyncThunk(
     "foods/getFoods",
@@ -29,7 +28,6 @@ export const getFoods =
     }
   );
 
-// ADD FOOD
 export const addFood =
   createAsyncThunk(
     "foods/addFood",
@@ -63,7 +61,6 @@ export const addFood =
     }
   );
 
-// UPDATE FOOD
 export const updateFood =
   createAsyncThunk(
     "foods/updateFood",
@@ -97,7 +94,6 @@ export const updateFood =
     }
   );
 
-// DELETE FOOD
 export const deleteFood =
   createAsyncThunk(
     "foods/deleteFood",
@@ -135,7 +131,6 @@ const foodSlice = createSlice({
 
     builder
 
-      // GET FOODS
       .addCase(
         getFoods.pending,
         (state) => {
@@ -166,7 +161,6 @@ const foodSlice = createSlice({
         }
       )
 
-      // ADD FOOD
       .addCase(
         addFood.pending,
         (state) => {
@@ -198,7 +192,6 @@ const foodSlice = createSlice({
         }
       )
 
-      // UPDATE FOOD
       .addCase(
         updateFood.fulfilled,
         (state, action) => {
@@ -218,7 +211,6 @@ const foodSlice = createSlice({
         }
       )
 
-      // DELETE FOOD
       .addCase(
         deleteFood.fulfilled,
         (state, action) => {

@@ -16,7 +16,7 @@ import Loader from "../components/common/Loader";
 
 import AddFoodModal from "../components/food/AddFoodModal";
 
-import FoodTable from "../components/food/FoodTable";
+import FoodCard from "../components/food/FoodCard";
 
 import {
   getFoods,
@@ -80,9 +80,20 @@ export default function Foods() {
             )
           }
 
-          <FoodTable
-            foods={foods}
-          />
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            {
+              foods?.map((food) => (
+
+                <FoodCard
+                  key={food._id}
+                  food={food}
+                />
+
+              ))
+            }
+
+          </div>
 
         </div>
 

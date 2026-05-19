@@ -5,7 +5,6 @@ import {
 
 import api from "../api/api";
 
-// GET ORDERS
 export const getOrders =
   createAsyncThunk(
     "orders/getOrders",
@@ -29,7 +28,6 @@ export const getOrders =
     }
   );
 
-// UPDATE ORDER STATUS
 export const updateOrderStatus =
   createAsyncThunk(
     "orders/updateStatus",
@@ -72,7 +70,6 @@ const orderSlice = createSlice({
 
     builder
 
-      // GET ORDERS
       .addCase(
         getOrders.pending,
         (state) => {
@@ -103,7 +100,6 @@ const orderSlice = createSlice({
         }
       )
 
-      // UPDATE STATUS
       .addCase(
         updateOrderStatus.fulfilled,
         (state, action) => {

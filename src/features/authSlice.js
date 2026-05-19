@@ -88,6 +88,58 @@ export const getProfile =
     }
   );
 
+export const updateProfile =
+  createAsyncThunk(
+    "auth/updateProfile",
+    async (
+      formData,
+      thunkAPI
+    ) => {
+
+      try {
+
+        const currentUser =
+          thunkAPI.getState()
+            .auth.user;
+
+        const updatedUser = {
+          ...currentUser,
+
+          name:
+            formData.get("name"),
+
+          phone:
+            formData.get("phone"),
+
+          address:
+            formData.get(
+              "address"
+            ),
+        };
+
+        if (
+          formData.get("image")
+        ) {
+
+          updatedUser.image =
+            URL.createObjectURL(
+              formData.get(
+                "image"
+              )
+            );
+        }
+
+        return updatedUser;
+
+      } catch (error) {
+
+        return thunkAPI.rejectWithValue(
+          error.message
+        );
+      }
+    }
+  );
+
 const authSlice = createSlice({
   name: "auth",
 
@@ -197,6 +249,36 @@ const authSlice = createSlice({
 
       .addCase(
         getProfile.rejected,
+        (state, action) => {
+
+          state.loading = false;
+
+          state.error =
+            action.payload;
+        }
+      )
+
+      .addCase(
+        updateProfile.pending,
+        (state) => {
+
+          state.loading = true;
+        }
+      )
+
+      .addCase(
+        updateProfile.fulfilled,
+        (state, action) => {
+
+          state.loading = false;
+
+          state.user =
+            action.payload;
+        }
+      )
+
+      .addCase(
+        updateProfile.rejected,
         (state, action) => {
 
           state.loading = false;
