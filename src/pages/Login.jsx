@@ -59,9 +59,11 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0f0f0f] flex">
+  <div className="min-h-screen bg-[#0f0f0f] flex items-center justify-center px-4 py-10">
 
-      <div className="hidden lg:flex w-1/2 bg-gradient-to-br from-red-600 to-orange-500 items-center justify-center p-16">
+    <div className="w-full max-w-6xl min-h-[700px] bg-[#1b1b1b] rounded-3xl overflow-hidden grid lg:grid-cols-2">
+
+      <div className="hidden lg:flex bg-gradient-to-br from-red-600 to-orange-500 p-16 items-center">
 
         <div>
 
@@ -69,99 +71,97 @@ export default function Login() {
             Zomato
           </h1>
 
-          <p className="text-white/90 mt-5 text-xl">
-            Restaurant Partner Dashboard
+          <p className="text-white/90 mt-6 text-2xl leading-10 max-w-md">
+             Restaurant Partner Dashboard
           </p>
 
         </div>
 
       </div>
 
-      <div className="flex-1 flex items-center justify-center px-6">
+      <div className="p-10 md:p-14 flex flex-col justify-center">
 
-        <div className="w-full max-w-md">
+        <h1 className="text-5xl font-bold text-white mb-3">
+          Welcome Back
+        </h1>
 
-          <h1 className="text-4xl font-bold text-white mb-2">
-            Welcome Back
-          </h1>
+        <p className="text-gray-400 mb-10 text-lg">
+          Login to continue
+        </p>
 
-          <p className="text-gray-400 mb-8">
-            Login to continue
-          </p>
+        {
+          error && (
+            <div className="bg-red-500/20 border border-red-500 text-red-400 px-4 py-4 rounded-xl mb-6">
+              {error}
+            </div>
+          )
+        }
+        <form
+          onSubmit={handleLogin}
+          className="space-y-6"
+        >
 
-          {
-            error && (
-              <div className="bg-red-500/20 border border-red-500 text-red-400 px-4 py-3 rounded-xl mb-5">
-                {error}
-              </div>
-            )
-          }
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            onChange={handleChange}
+            className="zomatoInput"
+          />
 
-          <form
-            onSubmit={handleLogin}
-            className="space-y-5"
-          >
-
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              onChange={handleChange}
-              className="zomatoInput"
-            />
-
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              onChange={handleChange}
-              className="zomatoInput"
-            />
-
-            <p
-              onClick={() =>
-                navigate(
-                  "/forgot-password"
-                )
-              }
-              className="text-red-400 text-right cursor-pointer"
-            >
-
-              Forgot Password?
-
-            </p>
-
-            <button className="primaryBtn">
-
-              {
-                loading
-                  ? "Loading..."
-                  : "Login"
-              }
-
-            </button>
-
-          </form>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            onChange={handleChange}
+            className="zomatoInput"
+          />
 
           <p
             onClick={() =>
-              navigate("/signup")
+              navigate(
+                "/forgot-password"
+              )
             }
-            className="text-center text-gray-400 mt-6 cursor-pointer"
+            className="text-red-400 text-right cursor-pointer hover:text-red-300 transition"
           >
 
-            Don’t have account?
-            {" "}
-            <span className="text-red-400">
-              Signup
-            </span>
+            Forgot Password?
 
           </p>
 
-        </div>
+          <button className="primaryBtn">
+
+            {
+              loading
+                ? "Loading..."
+                : "Login"
+            }
+
+          </button>
+
+        </form>
+
+        <p
+          onClick={() =>
+            navigate("/signup")
+          }
+          className="text-center text-gray-400 mt-8 cursor-pointer"
+        >
+
+          Don’t have account?
+          {" "}
+
+          <span className="text-red-400">
+            Signup
+          </span>
+
+        </p>
 
       </div>
 
     </div>
-  );
+
+  </div>
+);
 }
