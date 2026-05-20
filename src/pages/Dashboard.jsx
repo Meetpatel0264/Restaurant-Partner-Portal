@@ -112,9 +112,9 @@ export default function Dashboard() {
                 <h1 className="text-5xl font-bold leading-tight text-white">
 
                   Welcome,
-                  <h1>
+                  <p>
                   {user?.name}
-                  </h1>
+                  </p>
 
                 </h1>
 
