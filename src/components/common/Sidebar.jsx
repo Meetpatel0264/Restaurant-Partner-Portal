@@ -4,6 +4,7 @@ import {
   FiShoppingBag,
   FiLock,
   FiLogOut,
+  FiX,
 } from "react-icons/fi";
 
 import {
@@ -16,16 +17,15 @@ import {
   useLocation,
 } from "react-router-dom";
 
-import {
-  useState,
-} from "react";
+import { useState } from "react";
 
 import { logout } from "../../features/authSlice";
 
 import EditProfileModal from "./EditProfileModal";
 
-export default function Sidebar() {
-
+export default function Sidebar({
+  closeSidebar,
+}) {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -39,31 +39,46 @@ export default function Sidebar() {
     useSelector((state) => state.auth);
 
   const handleLogout = () => {
-
     dispatch(logout());
 
+    if (closeSidebar) {
+      closeSidebar();
+    }
+
     navigate("/");
+  };
+
+  const handleNavigate = (path) => {
+    navigate(path);
+
+    if (closeSidebar) {
+      closeSidebar();
+    }
+  };
+
+  const handleProfileOpen = () => {
+    setOpenProfile(true);
   };
 
   const menus = [
     {
       name: "Dashboard",
-      icon: <FiMenu />,
+      icon: <FiMenu size={20} />,
       path: "/dashboard",
     },
     {
       name: "Orders",
-      icon: <FiShoppingBag />,
+      icon: <FiShoppingBag size={20} />,
       path: "/orders",
     },
     {
       name: "Add Food",
-      icon: <FiPlus />,
+      icon: <FiPlus size={20} />,
       path: "/foods",
     },
     {
       name: "Change Password",
-      icon: <FiLock />,
+      icon: <FiLock size={20} />,
       path: "/change-password",
     },
   ];
@@ -75,51 +90,58 @@ export default function Sidebar() {
         setOpen={setOpenProfile}
       />
 
-      <div className="hidden lg:flex w-72 bg-[#171717] border-r border-white/5 flex-col justify-between min-h-screen sticky top-0">
+      <div className="w-72 bg-[#171717] border-r border-white/5 flex flex-col justify-between h-screen">
 
         <div>
 
           <div className="px-8 py-8 border-b border-white/5">
 
-            <h1 className="text-4xl font-bold text-red-500">
-              Zomato
-            </h1>
+            <div className="flex items-center justify-between">
 
-            <p className="text-gray-400 mt-2">
-              Restaurant Partner
-            </p>
+              <div>
+                <h1 className="text-4xl font-bold text-red-500">
+                  Zomato
+                </h1>
+
+                <p className="text-gray-400 mt-2">
+                  Restaurant Partner
+                </p>
+              </div>
+
+              <button
+                onClick={() => {
+                  if (closeSidebar) {
+                    closeSidebar();
+                  }
+                }}
+                className="lg:hidden text-white text-2xl"
+              >
+                <FiX />
+              </button>
+
+            </div>
 
           </div>
 
           <div className="p-5 space-y-3">
 
-            {
-              menus.map((menu) => (
-
-                <button
-                  key={menu.path}
-                  onClick={() =>
-                    navigate(menu.path)
-                  }
-                  className={`w-full px-5 py-4 rounded-2xl flex items-center gap-3 transition font-semibold
-                  
-                  ${
-                    location.pathname ===
-                    menu.path
-                      ? "bg-red-500 text-white"
-                      : "bg-[#222] hover:bg-[#2b2b2b] text-white"
-                  }                  
-                  `}
-                >
-
-                  {menu.icon}
-
-                  {menu.name}
-
-                </button>
-
-              ))
-            }
+            {menus.map((menu) => (
+              <button
+                key={menu.path}
+                onClick={() =>
+                  handleNavigate(menu.path)
+                }
+                className={`w-full px-5 py-4 rounded-2xl flex items-center gap-3 transition font-semibold
+                ${
+                  location.pathname === menu.path
+                    ? "bg-red-500 text-white"
+                    : "bg-[#222] hover:bg-[#2b2b2b] text-white"
+                }`}
+              >
+                {menu.icon}
+                {menu.name}
+              </button>
+            ))}
 
           </div>
 
@@ -128,9 +150,7 @@ export default function Sidebar() {
         <div className="p-5 border-t border-white/5">
 
           <div
-            onClick={() =>
-              setOpenProfile(true)
-            }
+            onClick={handleProfileOpen}
             className="flex items-center gap-4 mb-5 cursor-pointer"
           >
 
@@ -144,7 +164,6 @@ export default function Sidebar() {
             />
 
             <div>
-
               <h2 className="font-semibold text-white">
                 {user?.name}
               </h2>
@@ -152,20 +171,16 @@ export default function Sidebar() {
               <p className="text-gray-400 text-sm">
                 Restaurant Owner
               </p>
-
             </div>
 
           </div>
 
           <button
             onClick={handleLogout}
-            className="w-full bg-red-500 hover:bg-red-600 transition py-3 rounded-2xl flex items-center justify-center gap-2"
+            className="w-full bg-red-500 hover:bg-red-600 transition py-3 rounded-2xl flex items-center justify-center gap-2 text-white font-semibold"
           >
-
             <FiLogOut />
-
             Logout
-
           </button>
 
         </div>

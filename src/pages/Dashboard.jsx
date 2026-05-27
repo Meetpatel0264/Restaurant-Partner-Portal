@@ -33,6 +33,9 @@ import {
 
 export default function Dashboard() {
 
+  const [sidebarOpen, setSidebarOpen] =
+    useState(false);
+
   const dispatch = useDispatch();
 
   const [openModal, setOpenModal] =
@@ -74,7 +77,33 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-[#0f0f0f] flex">
 
-      <Sidebar />
+      <>
+        {sidebarOpen && (
+          <div
+            className="fixed inset-0 bg-black/60 z-40 lg:hidden"
+            onClick={() =>
+              setSidebarOpen(false)
+            }
+          />
+        )}
+
+        <div
+          className={`
+      fixed top-0 left-0 h-screen z-50
+      transform transition-transform duration-300
+      ${sidebarOpen
+              ? "translate-x-0"
+              : "-translate-x-full"}
+      lg:translate-x-0 lg:static
+    `}
+        >
+          <Sidebar
+            closeSidebar={() =>
+              setSidebarOpen(false)
+            }
+          />
+        </div>
+      </>
 
       <AddFoodModal
         open={openModal}
@@ -89,6 +118,11 @@ export default function Dashboard() {
           buttonText="Add Food"
           onClick={() =>
             setOpenModal(true)
+          }
+          toggleSidebar={() =>
+            setSidebarOpen(
+              !sidebarOpen
+            )
           }
         />
 
@@ -113,7 +147,7 @@ export default function Dashboard() {
 
                   Welcome,
                   <p>
-                  {user?.name}
+                    {user?.name}
                   </p>
 
                 </h1>
